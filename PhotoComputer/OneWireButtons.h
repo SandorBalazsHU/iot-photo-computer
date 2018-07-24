@@ -9,8 +9,7 @@ class OneWireButtons {
 
   private:
     const int inputPin;
-    int keyboardState;
-    int inputValue;
+    const int buttonsNumber = 6; 
     const int callibrationLimits[6][2] = 
       {
         {600,610},
@@ -20,6 +19,8 @@ class OneWireButtons {
         {970,980},
         {920,940}
       };
+  int keyboardState;
+  int inputValue;
 };
 
 #endif
