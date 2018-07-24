@@ -1,13 +1,13 @@
 #include <LiquidCrystal_I2C.h>
-#include  <virtuabotixRTC.h>
+#include <virtuabotixRTC.h>
 #include <Wire.h>
 #include "OneWireButtons.h"
 
 LiquidCrystal_I2C lcd(0x27,20,4);
 uint8_t photoIconPattern[8] = {0x0,0xe,0x1b,0x11,0x1b,0x1f,0x0,0x0};
 virtuabotixRTC myRTC(13, 12, 11);
-char photoIcon;
-int piezoPin = 8;
+const char photoIcon = (char)0;
+const int piezoPin = 8;
 
 void setup() {
   //Serial.begin(9600);
@@ -15,7 +15,6 @@ void setup() {
   lcd.backlight();
   lcd.createChar(0, photoIconPattern);
   //myRTC.setDS1302Time(0, 30, 1, 5, 18, 7, 2018);
-  photoIcon = (char)0;
 }
 
 void loop() {
