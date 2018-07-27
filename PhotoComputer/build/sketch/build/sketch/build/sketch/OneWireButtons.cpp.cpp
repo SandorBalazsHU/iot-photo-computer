@@ -1,15 +1,32 @@
+#line 1 "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\OneWireButtons.cpp"
+#line 1 "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\OneWireButtons.cpp"
+#include <Arduino.h>
+#include "OneWireButtons.h"
+
+OneWireButtons::OneWireButtons(byte inputPin) : inputPin(inputPin)
+{
+
+}
+
+int OneWireButtons::checkButtons()
+{
+  this->inputValue = analogRead(this->inputPin);
+  byte i = 0;
+  while(this->callibrationLimits[i][0]<=this->inputValue && this->callibrationLimits[i][1]>=this->inputValue && i>this->buttonsNumber) ++i;
+  return i;
+}
+
+#line 1 "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\PhotoComputer.ino"
 #include <LiquidCrystal_I2C.h>
 #include <virtuabotixRTC.h>
 #include <Wire.h>
-//#include "OneWireButtons.h"
+#include "OneWireButtons.h"
 
 LiquidCrystal_I2C lcd(0x27,20,4);
 uint8_t photoIconPattern[8] = {0x0,0xe,0x1b,0x11,0x1b,0x1f,0x0,0x0};
 virtuabotixRTC myRTC(13, 12, 11);
 const char photoIcon = (char)0;
 const int piezoPin = 8;
-const int focusPin = 9;
-const int shootPin = 10;
 
 void setup() {
   //Serial.begin(9600);
@@ -17,13 +34,6 @@ void setup() {
   lcd.backlight();
   lcd.createChar(0, photoIconPattern);
   //myRTC.setDS1302Time(0, 30, 1, 5, 18, 7, 2018);
-  pinMode(focusPin, OUTPUT);
-  pinMode(shootPin, OUTPUT);
-    /*digitalWrite(shootPin, HIGH);
-    digitalWrite(focusPin, HIGH);
-    delay(500);
-    digitalWrite(shootPin, LOW);
-    digitalWrite(focusPin, LOW);*/
 }
 
 void loop() {
@@ -41,18 +51,6 @@ void loop() {
   }
   if(buttonValue<200){
     lcd.print("000");
-  }
-  if(buttonValue>690 && buttonValue<700){
-    digitalWrite(shootPin, HIGH);
-    digitalWrite(focusPin, HIGH);
-    delay(500);
-    digitalWrite(shootPin, LOW);
-    digitalWrite(focusPin, LOW);
-  }
-  if(buttonValue>920 && buttonValue<940){
-    digitalWrite(focusPin, HIGH);
-    delay(500);
-    digitalWrite(focusPin, LOW);
   }
   if(buttonValue==977){
     lcd.noBacklight();
@@ -79,3 +77,4 @@ void printTime() {
   lcd.print(":");
   lcd.print(myRTC.seconds);
 }
+

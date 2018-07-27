@@ -1,0 +1,52 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\standard"
+  },
+  {
+    "Sourcefile": "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\build\\sketch\\OneWireButtons.cpp.cpp",
+    "Include": "LiquidCrystal_I2C.h",
+    "Includepath": "C:\\Users\\sandorbalazs\\Documents\\Arduino\\libraries\\LiquidCrystal_I2C"
+  },
+  {
+    "Sourcefile": "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\build\\sketch\\OneWireButtons.cpp.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\build\\sketch\\OneWireButtons.cpp.cpp",
+    "Include": "virtuabotixRTC.h",
+    "Includepath": "C:\\Users\\sandorbalazs\\Documents\\Arduino\\libraries\\ArduinoRTClibrary-master"
+  },
+  {
+    "Sourcefile": "C:\\Users\\sandorbalazs\\Desktop\\Programing\\iot-photo-computer\\PhotoComputer\\build\\sketch\\OneWireButtons.cpp.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\sandorbalazs\\Documents\\Arduino\\libraries\\LiquidCrystal_I2C\\LiquidCrystal_I2C.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\Wire\\src\\utility\\twi.c",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\sandorbalazs\\Documents\\Arduino\\libraries\\ArduinoRTClibrary-master\\virtuabotixRTC.cpp",
+    "Include": "",
+    "Includepath": ""
+  }
+]

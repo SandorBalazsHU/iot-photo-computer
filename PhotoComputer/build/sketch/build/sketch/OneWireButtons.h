@@ -10,7 +10,7 @@ class OneWireButtons {
   private:
     const byte inputPin;
     const byte buttonsNumber = 6; 
-    const int callibrationLimits[6][2] = 
+    const int callibrationLimits[this->buttonsNumber][2] = 
       {
         {600,610},
         {550,570},
@@ -19,7 +19,7 @@ class OneWireButtons {
         {970,980},
         {920,940}
       };
-  byte keyboardState[6];
+  byte keyboardState[this->buttonsNumber];
   int inputValue;
 };
 
