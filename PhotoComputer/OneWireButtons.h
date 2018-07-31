@@ -5,22 +5,22 @@ class OneWireButtons {
   public:
     int status;
     OneWireButtons(byte inputPin);
-    int checkButtons();
+    byte checkButtons();
+    int callibrationCheck();
 
   private:
     const byte inputPin;
-    const byte buttonsNumber = 6; 
-    const int callibrationLimits[6][2] = 
+    int inputValue;
+    static const byte buttonsNumber = 6; 
+    const int callibrationLimits[buttonsNumber][2] = 
       {
         {600,610},
-        {550,570},
-        {830,840},
+        {550,560},
         {690,700},
+        {830,840},
         {970,980},
         {920,940}
       };
-  byte keyboardState[6];
-  int inputValue;
 };
 
 #endif

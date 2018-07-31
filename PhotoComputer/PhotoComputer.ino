@@ -1,29 +1,39 @@
 #include <LiquidCrystal_I2C.h>
 #include <virtuabotixRTC.h>
 #include <Wire.h>
-//#include "OneWireButtons.h"
+#include "OneWireButtons.h"
+
+#define _DEBUG false
+#define _UNIT_TEST false
+
+const char* version = "Verzio: 1.0v"; 
+const char photoIcon = (char)0;
+const byte piezoPin = 8;
+const byte focusPin = 9;
+const byte shootPin = 10;
+const byte keyBoardPin = 0;
 
 LiquidCrystal_I2C lcd(0x27,20,4);
 uint8_t photoIconPattern[8] = {0x0,0xe,0x1b,0x11,0x1b,0x1f,0x0,0x0};
 virtuabotixRTC myRTC(13, 12, 11);
-const char photoIcon = (char)0;
-const int piezoPin = 8;
-const int focusPin = 9;
-const int shootPin = 10;
+OneWireButtons keyBoard(keyBoardPin);
+
 
 void setup() {
-  //Serial.begin(9600);
+  #if _DEBUG || _UNIT_TEST
+    Serial.begin(9600);
+  #endif
+
   lcd.init();
   lcd.backlight();
   lcd.createChar(0, photoIconPattern);
+
   //myRTC.setDS1302Time(0, 30, 1, 5, 18, 7, 2018);
+
   pinMode(focusPin, OUTPUT);
   pinMode(shootPin, OUTPUT);
-    /*digitalWrite(shootPin, HIGH);
-    digitalWrite(focusPin, HIGH);
-    delay(500);
-    digitalWrite(shootPin, LOW);
-    digitalWrite(focusPin, LOW);*/
+
+  printIntro();
 }
 
 void loop() {
@@ -32,34 +42,43 @@ void loop() {
   lcd.setCursor(15,0);
   lcd.print(photoIcon);
 
-  lcd.setCursor(13,1);
-  int buttonValue = analogRead(A0);
-  //Serial.println(buttonValue);
+  int buttonValue = keyBoard.checkButtons();
+
+  #if _DEBUG || _UNIT_TEST
+    Serial.print(buttonValue);
+    Serial.print(" , ");
+    Serial.print(keyBoard.callibrationCheck());
+  #endif
+
+  lcd.setCursor(15,1);
   lcd.print(buttonValue);
-  if(buttonValue>200){
+
+  if(buttonValue > 0){
     tone(piezoPin, 3000, 100);
   }
-  if(buttonValue<200){
-    lcd.print("000");
-  }
-  if(buttonValue>690 && buttonValue<700){
+
+  if(buttonValue == 3){
     digitalWrite(shootPin, HIGH);
     digitalWrite(focusPin, HIGH);
     delay(500);
     digitalWrite(shootPin, LOW);
     digitalWrite(focusPin, LOW);
   }
-  if(buttonValue>920 && buttonValue<940){
+
+  if(buttonValue == 6){
     digitalWrite(focusPin, HIGH);
     delay(500);
     digitalWrite(focusPin, LOW);
   }
-  if(buttonValue==977){
+
+  if(buttonValue == 4){
     lcd.noBacklight();
   }
-  if(buttonValue==837){
+
+  if(buttonValue == 5){
     lcd.backlight();
   }
+
   delay(200);
 }
 
@@ -78,4 +97,14 @@ void printTime() {
   lcd.print(myRTC.minutes);
   lcd.print(":");
   lcd.print(myRTC.seconds);
+}
+
+void printIntro() {
+  tone(piezoPin, 3000, 100);
+  lcd.setCursor(0,0);
+  lcd.print("SB PhotoComputer ");
+  lcd.setCursor(0,1);
+  lcd.print(version);
+  delay(3000);
+  lcd.clear();
 }
