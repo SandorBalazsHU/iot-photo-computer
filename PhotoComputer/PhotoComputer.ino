@@ -2,6 +2,7 @@
 #include <virtuabotixRTC.h>
 #include <Wire.h>
 #include "OneWireButtons.h"
+#include "Camera.h"
 
 #define _DEBUG false
 #define _UNIT_TEST false
