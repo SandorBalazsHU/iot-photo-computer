@@ -14,6 +14,7 @@ class Camera {
   private:
     const byte expoPin;
     const byte focusPin;
+    const int singleExpoTime = 200;
     byte focusState;
     byte expoState;
     byte startSemafor;

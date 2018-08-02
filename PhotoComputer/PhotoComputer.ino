@@ -31,9 +31,6 @@ void setup() {
 
   //myRTC.setDS1302Time(0, 30, 1, 5, 18, 7, 2018);
 
-  pinMode(focusPin, OUTPUT);
-  pinMode(shootPin, OUTPUT);
-
   printIntro();
 }
 
