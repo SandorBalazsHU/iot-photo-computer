@@ -31,6 +31,7 @@ void setup() {
 
   //myRTC.setDS1302Time(0, 30, 1, 5, 18, 7, 2018);
 
+
   printIntro();
 }
 
@@ -46,10 +47,9 @@ void loop() {
     Serial.print(buttonValue);
     Serial.print(" , ");
     Serial.print(keyBoard.callibrationCheck());
+    lcd.setCursor(15,1);
+    lcd.print(buttonValue);
   #endif
-
-  lcd.setCursor(15,1);
-  lcd.print(buttonValue);
 
   if(buttonValue > 0){
     tone(piezoPin, 3000, 100);
@@ -105,4 +105,8 @@ void printIntro() {
   lcd.print(version);
   delay(3000);
   lcd.clear();
+}
+
+void menu() {
+
 }
