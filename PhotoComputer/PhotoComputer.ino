@@ -21,18 +21,24 @@ void setup() {
 }
 
 void loop() {
-  printTime();
+  //printTime();
+  lcd.setCursor(0,0);
+  lcd.print(timeToInt());
 
   int buttonValue = keyBoard.checkButtons();
-
   if(buttonValue > 0){
     tone(piezoPin, 3000, 100);
   }
-
   if(buttonValue == 3){
   }
-
   delay(200);
+}
+
+int timeToInt(){
+  int time;
+  myRTC.updateTime();
+  int time = (myRTC.hours * 10000) + (myRTC.minutes * 100) + (myRTC.seconds);
+  return time;
 }
 
 void printTime() {
