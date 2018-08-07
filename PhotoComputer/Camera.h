@@ -3,7 +3,7 @@
 
 class Camera {
   public:
-    Camera(byte expoPin, byte focusPin);
+    Camera(byte expoPin, byte focusPin, byte piezoPin);
     byte focus(byte time);
     int exposition(byte time);
     void singleExpo();
@@ -14,6 +14,7 @@ class Camera {
   private:
     const byte expoPin;
     const byte focusPin;
+    const byte piezoPin;
     const int singleExpoTime = 200;
     byte focusState;
     byte expoState;

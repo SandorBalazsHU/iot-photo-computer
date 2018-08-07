@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "Camera.h"
 
-Camera::Camera(byte expoPin, byte focusPin) : expoPin(expoPin), focusPin(focusPin)
+Camera::Camera(byte expoPin, byte focusPin, byte piezoPin) : expoPin(expoPin), focusPin(focusPin), piezoPin(piezoPin)
 {
     this->startTime = 0;
     this->currentTime = 0;
@@ -63,6 +63,7 @@ void Camera::singleExpo()
     digitalWrite(this->expoPin, HIGH);
     digitalWrite(this->focusPin, HIGH);
     delay(this->singleExpoTime);
+    tone(this->piezoPin, 3000, 100);
     digitalWrite(this->expoPin, LOW);
     digitalWrite(this->focusPin, LOW);
 }

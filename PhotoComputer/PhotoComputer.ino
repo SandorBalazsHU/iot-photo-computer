@@ -3,57 +3,94 @@
 #include <Wire.h>
 #include "OneWireButtons.h"
 #include "Camera.h"
+#include "Time.h"
 
-const char* version = "1.1v StarTrailsTest"; 
+const char* version = "StarTrailsTest"; 
 const byte piezoPin = 8;
 const byte focusPin = 9;
-const byte shootPin = 10;
+const byte expoPin = 10;
 const byte keyBoardPin = 0;
+
+Time startTime;
+Time currentTime;
+int expoTime = 30;
+int expoCounter = 0;
 
 LiquidCrystal_I2C lcd(0x27,20,4);
 virtuabotixRTC myRTC(13, 12, 11);
 OneWireButtons keyBoard(keyBoardPin);
+Camera camera(expoPin, focusPin, piezoPin);
 
-void setup() {
+void setup()
+{
   lcd.init();
   lcd.backlight();
+  camera.setup();
   printIntro();
+  startTime.set(myRTC);
+  currentTime.set(myRTC);
 }
 
-void loop() {
-  //printTime();
-  lcd.setCursor(0,0);
-  lcd.print(timeToInt());
+void loop()
+{
+  printTime();
+  
+  /*if()
+  {
+    camera.singleExpo();
+    ++expoCounter;
+  }*/
 
   int buttonValue = keyBoard.checkButtons();
+  
   if(buttonValue > 0){
     tone(piezoPin, 3000, 100);
+    lcd.clear();
   }
-  if(buttonValue == 3){
-  }
+  if(buttonValue == 4) expoTime+=30.0;
+  if(buttonValue == 5) expoTime-=30.0;
+  if(buttonValue == 6) currentTime.add_sec(expoTime);
+
   delay(200);
 }
 
-int timeToInt(){
+double timeToInt()
+{
   myRTC.updateTime();
-  int time = (myRTC.hours * 10000) + (myRTC.minutes * 100) + (myRTC.seconds);
+  double time = myRTC.seconds + (myRTC.minutes * 100.0) + (myRTC.hours * 10000.0);
   return time;
 }
 
-void printTime() {
-  myRTC.updateTime();
+void printTime()
+{
   lcd.setCursor(0,0);
-  lcd.print(myRTC.year);
-  lcd.print("/");
-  lcd.print(myRTC.month);
-  lcd.print("/");
-  lcd.print(myRTC.dayofmonth);
+  if(currentTime.h < 10) lcd.print(0);
+  lcd.print(currentTime.h);
+  if(currentTime.m < 10) lcd.print(0);
+  lcd.print(currentTime.m);
+  if(currentTime.s < 10) lcd.print(0);
+  lcd.print(currentTime.s);
+  
+  lcd.setCursor(6,0);
+  lcd.print(" n:");
+  lcd.print(expoCounter);
+
+  lcd.setCursor(11,0);
+  lcd.print(" m:");
+  lcd.print(expoTime/60);
+  
+  lcd.setCursor(6,1);
+  lcd.print(" t:");
+  lcd.print(expoTime);
+  
+  myRTC.updateTime();
   
   lcd.setCursor(0,1);
+  if(myRTC.hours < 10) lcd.print(0);
   lcd.print(myRTC.hours);
-  lcd.print(":");
+  if(myRTC.minutes < 10) lcd.print(0);
   lcd.print(myRTC.minutes);
-  lcd.print(":");
+  if(myRTC.seconds < 10) lcd.print(0);
   lcd.print(myRTC.seconds);
 }
 
