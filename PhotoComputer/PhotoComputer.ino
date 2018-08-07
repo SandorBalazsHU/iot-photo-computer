@@ -35,7 +35,6 @@ void loop() {
 }
 
 int timeToInt(){
-  int time;
   myRTC.updateTime();
   int time = (myRTC.hours * 10000) + (myRTC.minutes * 100) + (myRTC.seconds);
   return time;

@@ -5,7 +5,7 @@ class Camera {
   public:
     Camera(byte expoPin, byte focusPin);
     byte focus(byte time);
-    void exposition(byte time);
+    int exposition(byte time);
     void singleExpo();
     void expoStart();
     void expoStop();

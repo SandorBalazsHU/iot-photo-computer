@@ -35,7 +35,7 @@ byte Camera::focus(byte time)
         return 0;
     }
 }
-void Camera::exposition(byte time)
+int Camera::exposition(byte time)
 {
     if(this->startSemafor == 0)
     {
@@ -60,10 +60,10 @@ void Camera::exposition(byte time)
 }
 void Camera::singleExpo()
 {
-    digitalWrite(this->shootPin, HIGH);
+    digitalWrite(this->expoPin, HIGH);
     digitalWrite(this->focusPin, HIGH);
     delay(this->singleExpoTime);
-    digitalWrite(this->shootPin, LOW);
+    digitalWrite(this->expoPin, LOW);
     digitalWrite(this->focusPin, LOW);
 }
 void Camera::expoStart()
