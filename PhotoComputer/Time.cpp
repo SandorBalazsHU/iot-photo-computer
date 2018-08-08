@@ -15,10 +15,10 @@ void Time::add_sec(int sec)
         if( ( 60 - this->m ) <= ( sec/60 ) + 1 )
         {
             sec -= (60 - this->m)*60;
-            this->m = sec/60;
+            this->m = ( sec/60 ) + 1 ;
             if(this->h + 1 == 24)
             {
-                this->h =0;
+                this->h = 0;
             }
             else
             {
@@ -27,7 +27,7 @@ void Time::add_sec(int sec)
         }
         else
         {
-            this->m += 1 + (sec/60);
+            this->m += ( sec/60 ) + 1 ;
         }
 
     }

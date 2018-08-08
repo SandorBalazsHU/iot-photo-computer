@@ -47,8 +47,8 @@ void loop()
     tone(piezoPin, 3000, 100);
     lcd.clear();
   }
-  if(buttonValue == 4) expoTime+=30.0;
-  if(buttonValue == 5) expoTime-=30.0;
+  if(buttonValue == 4) expoTime+=5;
+  if(buttonValue == 5) expoTime-=5;
   if(buttonValue == 6) currentTime.add_sec(expoTime);
 
   delay(200);
