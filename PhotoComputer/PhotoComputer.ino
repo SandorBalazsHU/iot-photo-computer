@@ -15,6 +15,7 @@ Time startTime;
 Time currentTime;
 int expoTime = 30;
 int expoCounter = 0;
+int state = 0;
 
 LiquidCrystal_I2C lcd(0x27,20,4);
 virtuabotixRTC myRTC(13, 12, 11);
@@ -35,11 +36,13 @@ void loop()
 {
   printTime();
   
-  /*if()
+  if(timeToInt() >= currentTime.toInt() && state != 0)
   {
     camera.singleExpo();
     ++expoCounter;
-  }*/
+    currentTime.add_sec(expoTime);
+    camera.singleExpo();
+  }
 
   int buttonValue = keyBoard.checkButtons();
   
@@ -49,7 +52,21 @@ void loop()
   }
   if(buttonValue == 4) expoTime+=5;
   if(buttonValue == 5) expoTime-=5;
-  if(buttonValue == 6) currentTime.add_sec(expoTime);
+  if(buttonValue == 6)
+  {
+    if(state == 0)
+    {
+      camera.singleExpo();
+      ++expoCounter;
+      currentTime.add_sec(expoTime);
+      state = 1;
+    }
+    else
+    {
+      state == 1;
+      camera.singleExpo();
+    }
+  }
 
   delay(200);
 }

@@ -35,7 +35,6 @@ void Time::add_sec(int sec)
     {
         this->s += sec;
     }
-
 }
 
 void Time::set(virtuabotixRTC time)
