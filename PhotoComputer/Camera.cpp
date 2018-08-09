@@ -13,6 +13,10 @@ void Camera::setup()
 {
     pinMode(this->expoPin, OUTPUT);
     pinMode(this->focusPin, OUTPUT);
+    delay(this->singleExpoTime);
+    digitalWrite(this->expoPin, LOW);
+    digitalWrite(this->focusPin, LOW);
+    delay(this->singleExpoTime);
 }
 byte Camera::focus(byte time)
 {
@@ -70,14 +74,18 @@ void Camera::singleExpo()
 void Camera::expoStart()
 {
     digitalWrite(this->focusPin, HIGH);
-    this->focusState = 1;
+    delay(this->singleExpoTime);
     digitalWrite(this->expoPin, HIGH);
+    delay(this->singleExpoTime);
+    this->focusState = 1;
     this->expoState = 1;
 }
 void Camera::expoStop()
 {
-    digitalWrite(this->focusPin, LOW);
-    this->focusState = 0;
     digitalWrite(this->expoPin, LOW);
+    delay(this->singleExpoTime);
+    digitalWrite(this->focusPin, LOW);
+    delay(this->singleExpoTime);
+    this->focusState = 0;
     this->expoState = 0;
 }

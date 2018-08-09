@@ -36,35 +36,35 @@ void loop()
 {
   printTime();
   
-  if(timeToInt() >= currentTime.toInt() && state != 0)
+  if(timeToInt() >= currentTime.getInt() && state != 0)
   {
-    camera.singleExpo();
+    camera.expoStop();
     ++expoCounter;
     currentTime.add_sec(expoTime);
-    camera.singleExpo();
+    camera.expoStart();
   }
 
   int buttonValue = keyBoard.checkButtons();
   
-  if(buttonValue > 0){
+  /*if(buttonValue > 0){
     tone(piezoPin, 3000, 100);
     lcd.clear();
-  }
+  }*/
   if(buttonValue == 4) expoTime+=5;
   if(buttonValue == 5) expoTime-=5;
   if(buttonValue == 6)
   {
     if(state == 0)
     {
-      camera.singleExpo();
+      camera.expoStart();
       ++expoCounter;
       currentTime.add_sec(expoTime);
       state = 1;
     }
     else
     {
-      state == 1;
-      camera.singleExpo();
+      state = 0;
+      camera.expoStop();
     }
   }
 
